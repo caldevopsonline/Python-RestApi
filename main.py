@@ -12,10 +12,7 @@ signup.add_argument("last_name", type=str, help='you need to enter your last nam
 signup.add_argument("set_password", type=str, help='you need to enter your password', required=True)
 
 # create a distionary data of exiting customer for get method
-exist_customer = {
-    "caleb": {"first_name": "caleb", "last_name": "eghan", "password": "123"},
-    "ben": {"first_name": "ben", "last_name": "hendeerson", "password": "321"}
-}
+
 # Empty dictionary to store all data of customers who signup
 client_details = {}
 
@@ -51,6 +48,11 @@ class service_post(Resource):
     def get(self, new_customer):
         abort_request_if_customer_not_found(new_customer)
         return client_details[new_customer]
+
+    def delete(self, new_customer):
+        abort_request_if_customer_not_found(new_customer)
+        del client_details[new_customer]
+        return '', 204
 
 
 # Add Service_post as an Api resource and set a url directory
